@@ -11,7 +11,6 @@
 
 import _ from 'lodash';
 import Scenario from './scenario.model';
-import HistoricalQuotesService from '../historicalQuotes/historicalQuotes.service';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -62,25 +61,6 @@ function handleError(res, statusCode) {
 
 // Gets a list of Scenarios
 export function index(req, res) {
-  console.log("controller:show");
-  let start = new Date(2010, 1, 1);
-  let end = new Date();
-  let ticker = 'AAPL';
-  //HistoricalQuotesService.getQuotes(ticker, start, end)
-  //  .then(function (quotes) {
-  //    console.log('------------------------');
-  //    console.log(quotes);
-  //  //  let backtestResults = new BacktestResults();
-  //  //  backtestResults.runBacktestAnalysis(quotes,scenario);
-  //  //  resolve(backtestResults);
-  //  })
-  //  .catch(function (err) {
-  //    reject(err);
-  //  });
-
-
-
-  HistoricalQuotesService.getQuotes('AAPL',start,end);
   Scenario.findAsync({'owner': req.user._id})
     .then(respondWithResult(res))
     .catch(handleError(res));
