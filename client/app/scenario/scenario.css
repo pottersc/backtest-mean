@@ -1,0 +1,59 @@
+md-input-container .md-errors-spacer {
+   min-height: 0 !important;
+}
+
+.scenario-label {
+  font-weight: bold;
+}
+
+.scenario-analysis-details {
+  font-style: italic;
+}
+
+.validation-messages {
+  color : #dc2c01;
+  font-size: 12px;
+}
+
+.hero-unit {
+  background-color: #0288D1;
+}
+
+#unauthortized-banner {
+  background-color: grey !important;
+}
+.custom-navbar{
+  background-color: #2196F3;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+.navbar {
+  background-color: #2196F3;
+}
+
+.navbar-nav >  li > a {
+  color: white !important;
+  font-size: 16px !important;
+}
+
+.navbar-nav >  li > a:hover {
+  color: navajowhite !important;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #1976D2;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-text {
+  color: blue;
+}
+
+md-tooltip {
+  font-size: 16px;
+}
+

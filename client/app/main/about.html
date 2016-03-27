@@ -1,0 +1,176 @@
+<div flex layout="row" layout-align="center center" >
+  <div flex-xs="100" flex-gt-xs="90" class="md-whiteframe-12dp">
+    <md-content class="md-padding">
+      <div>
+        <h2 class="text-center">About the Stock Trading Backtest Tools</h2>
+
+        <p>
+          The stock trading backtest application was developed using the MEAN (Mongo Express Angular NodeJs) stack.
+          All backtesting calculations and report generation are written in Javascript and run on the client's browser
+          which facilitates future scalability needs.
+          The server side of the application is responsible for persisting a user's previously run scenarios to a NoSQL database.
+          Historical quotes are accessed via web services call to Yahoo financial API.
+        </p>
+        <p>
+          A complete listing of each of the technologies used in the development of this application is shown below.
+        </p>
+
+        <h3 class="text-center">Development Technologies & Tools</h3>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+              <th width="20%">Technology</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><a href="https://github.com/pottersc/backtest-mean" target="_blank">Backtest Source Code</a> </td>
+              <td>Custom code developed for the backtesting application that is version controlled on GitHub</td>
+            </tr>
+            <tr>
+              <td><a href="http://www.w3schools.com/js/" target="_blank">Javascript</a></td>
+              <td>Dynamically typed object oriented language that is supported in all common web browsers</td>
+            </tr>
+            <tr>
+              <td><a href="https://angularjs.org/" target="_blank">AngularJS</a></td>
+              <td>Javascript MV* framework that makes building dynamic single page web applications much easier</td>
+            </tr>
+            <tr>
+              <td><a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank">angular-fullstack</a></td>
+              <td>A yeoman generator that automatically generates all the boilerplate code for a MEAN application.  This is the single biggest
+                time saver used in the creation of this project. It automatically creates an application that include security,
+                template Mongoose models that save to Mongo, a working user interface, fully configured socket IO, and much much more... </td>
+            </tr>
+            <tr>
+              <td><a href="https://docs.mongodb.org/manual/" target="_blank">Mongo DB</a></td>
+              <td>Underlying document oriented No-SQL database that can efficiently store and retrieve content is a JSON like format</td>
+            </tr>
+            <tr>
+              <td><a href="http://mongoosejs.com/" target="_blank">Mongoose</a></td>
+              <td>A mongoDB object modelling tool that makes interfacing with Mongo much easier</td>
+            </tr>
+            <tr>
+              <td><a href="https://en.wikipedia.org/wiki/JSON" target="_blank">JSON</a></td>
+              <td>(JavaScript Object Notation) An open standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs</td>
+            </tr>
+            <tr>
+              <td><a href="http://expressjs.com/" target="_blank">Express</a></td>
+              <td>A web framework for NodeJS that allows you to easily configure HTTP routing</td>
+            </tr>
+            <tr>
+              <td><a href="https://nodejs.org/en/" target="_blank">NodeJS</a></td>
+              <td>An asynchronous event driven framework that is designed to build scalable network applications</td>
+            </tr>
+            <tr>
+              <td><a href="https://material.angularjs.org" target="_blank">Angular Material</a></td>
+              <td>Provides a very cool set of user interface components that can scale for various screen sizes and can easily be integrated into an Angular application.  This will probably make Bootstrap obsolete.</td>
+            </tr>
+            <tr>
+              <td><a href="http://passportjs.org/" target="_blank">Passport</a></td>
+              <td>Authentication middleware for NodeJs that includes OAuth.  This came automatically installed  with angular-fullstack and worked out of the box. </td>
+            </tr>
+            <tr>
+              <td><a href="http://bluebirdjs.com/docs/getting-started.html" target="_blank">BluebirdJS</a></td>
+              <td>3rd party javascript library that makes running asynchronous code with Promises much easier</td>
+            </tr>
+            <tr>
+              <td><a href="https://lodash.com/" target="_blank">LoDash</a></td>
+              <td>A javascript library that has tons of useful features.  This is the successor to underscore library.</td>
+            </tr>
+            <tr>
+              <td><a href="http://socket.io/" target="_blank">Socket.IO</a></td>
+              <td>Automatically keeps all clients synced in real time whenever any data is changed.  This came installed and configured with angular-fullstack and works flawlessy out of the box.</td>
+            </tr>
+            <tr>
+              <td><a href="https://developers.google.com/chart/interactive/docs/gallery/linechart" target="_blank">Google Charts</a></td>
+              <td>Client side chart generation code developed by Google</td>
+            </tr>
+            <tr>
+              <td><a href="http://www.w3schools.com/html" target="_blank">HTML</a></td>
+              <td>Markup language for describing web documents</td>
+            </tr>
+            <tr>
+              <td><a href="http://www.w3schools.com/css" target="_blank">CSS</a></td>
+              <td>Cascading Style Sheets is used to describe how (color, format, spacing, size, etc)HTML elements are to be displayed on the screen</td>
+            </tr>
+            <tr>
+              <td><a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a></td>
+              <td>Great set of icons that integrates easily with an angular app</td>
+            </tr>
+            <tr>
+              <td><a href="http://financequotes-api.com/" target="_blank">YahooFinanceAPI</a></td>
+              <td>All of the stock trading code was custom built for this application, but you have to get the historical quote data from somewhere.
+                Yahoo Finance API is a web service that provides historical quote data upon request</td>
+            </tr>
+            </tbody>
+          </table>
+
+
+
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+              <thead>
+              <tr>
+                <th width="20%">Tool</th>
+                <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td><a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm</a></td>
+                <td>Great Javascript IDE with many features that make web development much easier</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome Developer Tools</a></td>
+                <td>Chrome is not only a great browser ... it also has a great set of developer tools for debugging client side code</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.getpostman.com/" target="_blank">Postman</a></td>
+                <td>A Chrome add on utility that allows you to easily test HTTP requests</td>
+              </tr>
+              <tr>
+                <td><a href="https://robomongo.org/" target="_blank">RoboMongo</a></td>
+                <td>A mongoDB management tool that allows you to easily inspect the database contents</td>
+              </tr>
+              <tr>
+                <td><a href="https://www.npmjs.com/" target="_blank">NPM</a></td>
+                <td>(Node Package Manager) NPM is the package manager for javascript</td>
+              </tr>
+              <tr>
+                <td><a href="http://bower.io/" target="_blank">Bower</a></td>
+                <td>Package manager tool that automates the process of fetching and installing third party packages</td>
+              </tr>
+              <tr>
+                <td><a href="http://gruntjs.com/" target="_blank">Grunt</a></td>
+                <td>Task runner that automates things like building, testing, and minification</td>
+              </tr>
+              <tr>
+                <td><a href="http://yeoman.io/" target="_blank">Yeoman</a></td>
+                <td>A great scaffolding tool that saves a lot of time when starting a new web app </td>
+              </tr>
+              <tr>
+                <td><a href="https://developers.openshift.com/en/node-js-example-meanstack.html" target="_blank">Openshift</a></td>
+                <td>Openshift offers a free version of their PaaS service that was more than capable of handling the cloud deployment for the Backtest application </td>
+              </tr>
+              <tr>
+                <td><a href="http://www.putty.org/" target="_blank">Putty</a></td>
+                <td>Free ssh client that is useful for connecting to servers like Openshift</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+          </div>
+
+      </div>
+    </md-content>
+  </div>
+</div>
+
+
+

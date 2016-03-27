@@ -1,0 +1,49 @@
+<md-dialog flex-xs="100" flex-gt-xs="100" flex-gt-sm="90" aria-label="Scenario List">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Previously Run Scenarios</h2>
+        <span flex></span>
+        <md-button ng-click="cancel()"" class="" aria-label="Load Scenario">
+          <i class="fa fa-times fa-2x"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-list-item  aria-label="Scenario"  ng-repeat="scenario in ModalCtrl.ScenarioCtrl.scenarios" >
+          <div flex="100" layout="row">
+            <p flex="10" class="scenario-label"><i class="fa fa-line-chart"></i> {{ModalCtrl.ScenarioCtrl.getAnalysisReturnLabel(scenario)}} </p>
+            <p flex pull-right>
+              {{ModalCtrl.ScenarioCtrl.getDesc(scenario)}}
+              <br>
+              <span class="scenario-analysis-details">{{ModalCtrl.ScenarioCtrl.getAnalysisReturnDesc(scenario)}}</span>
+            </p>
+            <div flex="none">
+              <md-button ng-click="loadScenarioFromDialog(scenario)" class="md-fab md-mini md-primary" aria-label="Load Scenario">
+                <i class="fa fa-hand-o-right"></i>
+                <md-tooltip md-direction="left">Load this scenario into the analysis tool</md-tooltip>
+              </md-button>
+            </div>
+            <div flex="none">
+              <md-button ng-click="ModalCtrl.ScenarioCtrl.deleteScenario(scenario)" class="md-fab md-mini md-danger" aria-label="Delete Scenario">
+                <i class="fa fa-trash" ></i>
+                <md-tooltip md-direction="left">Permanently delete this scenario from the database</md-tooltip>
+              </md-button>
+            </div>
+          </div>
+          <md-divider></md-divider>
+        </md-list-item>
+        </md-list>
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" ng-click="cancel()">
+        <i class="fa fa-undo"></i>
+        Return To Analysis Page
+      </md-button>
+      <span flex></span>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

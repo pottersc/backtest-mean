@@ -1,0 +1,129 @@
+<div flex layout="row" layout-align="center center" ng-if="!isAuthenticated()">
+  <div flex="95" class="md-whiteframe-12dp">
+    <md-content>
+      <header class="hero-unit" id="unauthortized-banner">
+        <div class="container">
+          <h1>Login Required</h1>
+          <p>You must log in before you can run a backtest analysis</p>
+        </div>
+      </header>
+    </md-content>
+  </div>
+</div>
+
+
+<div flex layout="row" layout-align="center center" ng-if="isAuthenticated()">
+  <div flex-xs="100" flex-gt-xs="90" flex-gt-md="60" class="md-whiteframe-4dp">
+    <md-content class="md-padding">
+      <form name="scenarioForm" class="md-inline-form">
+
+        <div layout="row" layout-xs="column" layout-fill>
+          <md-input-container flex-xs="100" flex-gt-xs="100" flex-gt-sm="33" class="md-block">
+            <label>Ticker</label>
+            <input name="ticker" ng-model="scenario.ticker" size="8"  required ng-minlength=2 ng-maxlength=5>
+            <div ng-messages="scenarioForm.ticker.$error">
+              <div ng-message-exp="['required', 'minlength', 'maxlength']">The ticker symbol must be between 2 and 5 characters</div>
+            </div>
+          </md-input-container>
+          <md-input-container  flex-xs="100" flex-gt-xs="100" flex-gt-sm="33">
+            <label>Starting Investment</label>
+            <input type="number" name="startingInvestment" ng-model="scenario.startingInvestment" size="8" required min="0" max="1000000">
+            <div ng-messages="scenarioForm.startingInvestment.$error">
+              <div ng-message-exp="['required', 'valid', 'min', 'max']">The starting investment must be a number between 0 and 1M</div>
+            </div>
+          </md-input-container>
+          <md-input-container  flex-xs="100" flex-gt-xs="100" flex-gt-sm="33">
+            <label>Transaction Cost</label>
+            <input type="number" name="transactionCost" ng-model="scenario.transactionCost" size="8" required min="0" max="100">
+            <div ng-messages="scenarioForm.transactionCost.$error">
+              <div ng-message-exp="['required', 'valid', 'min', 'max']">The Transaction Cost must be a number between 0 and 100</div>
+            </div>
+          </md-input-container>
+        </div>
+
+        <div layout="row" layout-xs="column">
+          <span flex-xs="100" flex-gt-xs="100" flex-gt-sm="50">
+            <label>Start Date</label>
+            <md-datepicker name="start" id="start" ng-model="scenario.start" md-placeholder="Enter Date" required>
+            </md-datepicker>
+            <div class="validation-messages" ng-messages="scenarioForm.start.$error">
+              <div ng-message="required">start date is a required field</div>
+              <div ng-message="valid">the entered value is not a valid date</div>
+            </div>
+           </span>
+
+          <span flex-xs="100" flex-gt-xs="100" flex-gt-sm="50">
+            <label>End Date</label>
+            <md-datepicker name="end" id="end" ng-model="scenario.end" md-placeholder="Enter Date" required>
+            </md-datepicker>
+            <div class="validation-messages" ng-messages="scenarioForm.end.$error">
+              <div ng-message="required">end date is a required field</div>
+              <div ng-message="valid">the entered value is not a valid date</div>
+            </div>
+          </span>
+        </div>
+
+        <div layout-xs="column" layout-gt-xs="column" layout-gt-sm="row">
+          <technical-indicator  flex-xs="100" flex-gt-xs="100" flex-gt-sm="40" layout-fill indicator="scenario.buyTrigger.indicator1" strategy-choices="strategyChoices" name="buyIndicator1" desc="Buy Indicator 1"></technical-indicator>
+          <md-input-container  flex-xs="100" flex-gt-xs="100" flex-gt-sm="20">
+            <label>Buy Condition</label>
+            <md-select ng-model="scenario.buyTrigger.operator">
+              <md-option ng-repeat="operator in operatorChoices" value="{{operator}}">
+                {{operator}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <technical-indicator  flex-xs="100" flex-gt-xs="100" flex-gt-sm="40"  indicator="scenario.buyTrigger.indicator2" strategy-choices="strategyChoices" name="buyIndicator2" desc="Buy Indicator 2"></technical-indicator>
+        </div>
+
+        <div layout-xs="column" layout-gt-xs="column" layout-gt-sm="row">
+          <technical-indicator  flex-xs="100" flex-gt-xs="100" flex-gt-sm="40" indicator="scenario.sellTrigger.indicator1" strategy-choices="strategyChoices" name="sellIndicator1" desc="Sell Indicator 1"></technical-indicator>
+          <md-input-container  flex-xs="100" flex-gt-xs="100" flex-gt-sm="20">
+            <label>Sell Condition</label>
+            <md-select ng-model="scenario.sellTrigger.operator">
+              <md-option ng-repeat="operator in operatorChoices" value="{{operator}}">
+                {{operator}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <technical-indicator  flex-xs="100" flex-gt-xs="100" flex-gt-sm="40"  indicator="scenario.sellTrigger.indicator2" strategy-choices="strategyChoices" name="sellIndicator2" desc="Sell Indicator 2"></technical-indicator>
+        </div>
+
+        <div layout-xs="column" layout-gt-xs="column" layout-gt-sm="row" layout-align="center center" layout-wrap>
+          <md-button class="md-raised md-primary" ng-click="addScenario(scenarioForm)" ng-show="scenario.analysisResults">
+            <i class="fa fa-plus-square-o"></i>
+            Save New
+            <md-tooltip>Save this as a new scenario that will be added to the list of previously run scenarios</md-tooltip>
+          </md-button>
+          <md-button class="md-raised md-primary" ng-click="updateScenario(scenarioForm)" ng-show="scenario._id">
+            <i class="fa fa-wrench"></i>
+            Update
+            <md-tooltip>Update / Overwrite the current scenario in the database</md-tooltip>
+          </md-button>
+          <md-button class="md-raised md-primary" ng-click="analyzeScenario(scenarioForm)">
+            <i class="fa fa-cog"></i>
+            Run Analysis
+            <md-tooltip>Run the backtesting analysis on the currently entered scenario</md-tooltip>
+          </md-button>
+          <md-button class="md-raised md-primary" ng-click="showScenariosPickList($event)">
+            <i class="fa fa-eye"></i>
+            View History
+            <md-tooltip>View a picklist of previously run scenarios</md-tooltip>
+          </md-button>
+        </div>
+      </form>
+    </md-content>
+  </div>
+</div>
+
+<br>
+<div flex layout="row" layout-align="center center" ng-show="chartObject">
+  <div flex="95" class="md-whiteframe-3dp">
+    <md-content class="md-padding">
+      <div google-chart chart="chartObject"  on-select="hideSeries(selectedItem)" style="height:600px; width:100%;"></div>
+    </md-content>
+  </div>
+</div>
+
+
+

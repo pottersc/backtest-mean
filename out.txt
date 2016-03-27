@@ -1,0 +1,134 @@
+[4mRunning "newer:jshint" (newer) task[24m
+
+[4mRunning "newer:jshint:server" (newer) task[24m
+No newer files to process.
+
+[4mRunning "newer:jshint:serverTest" (newer) task[24m
+No newer files to process.
+
+[4mRunning "newer:jshint:all" (newer) task[24m
+
+[4mRunning "jshint:all" (jshint) task[24m
+
+client/app/directives/technicalIndicator/technicalIndicator.directive.js
+  line 12   col 24   Strings must use singlequote.
+  line 18   col 42   Expected '===' and instead saw '=='.
+
+client/app/scenario/scenario.controller.js
+  line 12   col 12   Expected an assignment or function call and instead saw an expression.
+  line 47   col 35   Strings must use singlequote.
+  line 49   col 6    Missing semicolon.
+  line 80   col 35   Strings must use singlequote.
+  line 82   col 6    Missing semicolon.
+  line 96   col 35   Strings must use singlequote.
+  line 98   col 6    Missing semicolon.
+  line 112  col 6    Missing semicolon.
+  line 121  col 6    Missing semicolon.
+  line 130  col 6    Missing semicolon.
+  line 138  col 44   Strings must use singlequote.
+  line 138  col 104  Strings must use singlequote.
+  line 139  col 6    Missing semicolon.
+  line 148  col 9    Expected '{' and instead saw 'return'.
+  line 148  col 77   Strings must use singlequote.
+  line 150  col 9    Expected '{' and instead saw 'return'.
+  line 150  col 20   Strings must use singlequote.
+  line 151  col 6    Missing semicolon.
+  line 160  col 9    Expected '{' and instead saw 'return'.
+  line 160  col 39   Strings must use singlequote.
+  line 160  col 135  Strings must use singlequote.
+  line 160  col 197  Strings must use singlequote.
+  line 162  col 9    Expected '{' and instead saw 'return'.
+  line 162  col 39   Strings must use singlequote.
+  line 163  col 6    Missing semicolon.
+  line 10   col 30   'IndicatorStrategyFactory' is not defined.
+
+client/app/services/backtest/backtest.service.js
+  line 41   col 21   Strings must use singlequote.
+  line 49   col 22   Strings must use singlequote.
+  line 53   col 22   Strings must use singlequote.
+  line 56   col 22   Strings must use singlequote.
+  line 64   col 22   Strings must use singlequote.
+  line 68   col 22   Strings must use singlequote.
+  line 71   col 22   Strings must use singlequote.
+  line 108  col 36   Strings must use singlequote.
+  line 109  col 9    Expected '{' and instead saw 'value'.
+  line 25   col 37   'BacktestResults' is not defined.
+
+client/app/services/backtest/backtestresults.model.js
+  line 120  col 26   Expected '===' and instead saw '=='.
+  line 123  col 26   Expected '===' and instead saw '=='.
+  line 159  col 33   'IndicatorStrategyFactory' is not defined.
+  line 7    col 7    'BacktestResults' is defined but never used.
+
+client/app/services/backtest/indicatorStrategy.js
+  line 20   col 19   Strings must use singlequote.
+  line 23   col 17   Strings must use singlequote.
+  line 26   col 17   Strings must use singlequote.
+  line 29   col 17   Strings must use singlequote.
+  line 44   col 19   Strings must use singlequote.
+  line 44   col 44   Strings must use singlequote.
+  line 44   col 78   Strings must use singlequote.
+  line 44   col 106  Strings must use singlequote.
+  line 45   col 19   Strings must use singlequote.
+  line 45   col 48   Strings must use singlequote.
+  line 45   col 82   Strings must use singlequote.
+  line 45   col 110  Strings must use singlequote.
+  line 46   col 19   Strings must use singlequote.
+  line 46   col 41   Strings must use singlequote.
+  line 46   col 70   Strings must use singlequote.
+  line 46   col 98   Strings must use singlequote.
+  line 47   col 21   Strings must use singlequote.
+  line 47   col 45   Strings must use singlequote.
+  line 47   col 73   Strings must use singlequote.
+  line 47   col 101  Strings must use singlequote.
+  line 131  col 29   'MovingAverageStrategy' was used before it was defined.
+  line 135  col 25   Strings must use singlequote.
+  line 135  col 36   Strings must use singlequote.
+  line 169  col 26   'FixedValueStrategy' was used before it was defined.
+  line 172  col 25   Strings must use singlequote.
+  line 172  col 40   Strings must use singlequote.
+  line 193  col 28   'ClosingPriceStrategy' was used before it was defined.
+  line 215  col 40   'ExponentialMovingAverageStrategy' was used before it was defined.
+  line 219  col 25   Strings must use singlequote.
+  line 219  col 36   Strings must use singlequote.
+  line 244  col 13   Expected '===' and instead saw '=='.
+  line 17   col 7    'IndicatorStrategyFactory' is defined but never used.
+  line 82   col 13   'tradeDays' is defined but never used.
+
+client/app/services/chart/chart.service.js
+  line 45   col 29   Expected '!==' and instead saw '!='.
+  line 64   col 19   Strings must use singlequote.
+  line 65   col 26   Strings must use singlequote.
+  line 98   col 45   Expected '===' and instead saw '=='.
+  line 113  col 6    Missing semicolon.
+  line 137  col 29   Expected '===' and instead saw '=='.
+  line 137  col 57   Expected '===' and instead saw '=='.
+  line 22   col 24   'google' is not defined.
+
+client/app/services/historicalQuotes/historicalQuotes.service.js
+  line 19   col 57   Strings must use singlequote.
+  line 19   col 70   Strings must use singlequote.
+  line 19   col 93   Strings must use singlequote.
+  line 19   col 115  Strings must use singlequote.
+  line 19   col 141  Strings must use singlequote.
+  line 19   col 162  Strings must use singlequote.
+  line 19   col 182  Strings must use singlequote.
+  line 79   col 77   Strings must use singlequote.
+
+  ‼  91 warnings
+
+[33mWarning: Task "jshint:all" failed. Use --force to continue.[39m
+
+[31mAborted due to warnings.[39m
+
+
+Execution Time (2016-03-25 20:40:48 UTC)
+loading tasks                 227ms  ██████████ 29%
+loading grunt-newer            13ms  █ 2%
+newer:jshint:server            12ms  █ 2%
+newer:jshint:serverTest         9ms  █ 1%
+newer:jshint:all               11ms  █ 1%
+loading grunt-contrib-jshint   96ms  ████ 12%
+jshint:all                    399ms  █████████████████ 52%
+Total 771ms
+

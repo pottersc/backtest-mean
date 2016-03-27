@@ -1,0 +1,18 @@
+<span>
+  <md-input-container flex>
+    <label>{{desc}}</label>
+    <md-select ng-model="indicator.type" layout-fill="">
+      <md-option ng-repeat="strategy in strategyChoices" value="{{strategy.type}}">
+        {{strategy.label}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container flex="none" ng-show="getStrategy(indicator.type, strategyChoices).value1Label">
+    <label>{{getStrategy(indicator.type, strategyChoices).value1Label }}</label>
+    <input type="number" ng-model="indicator.value1" size="8" required min="0">
+    <div ng-messages="scenarioForm.transactionCost.$error">
+      <div ng-message-exp="['required', 'valid', 'min']">Must be number > 0</div>
+    </div>
+  </md-input-container>
+</span>
