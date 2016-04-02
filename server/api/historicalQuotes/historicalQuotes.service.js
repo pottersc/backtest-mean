@@ -16,7 +16,7 @@ exports.getQuotes = function(ticker, startStr, endStr) {
   return new Promise(function(resolve, reject) {
     var url = 'http://ichart.yahoo.com/table.csv?s='+ticker+'&a='+start.getMonth()+'&b='+start.getDate()+'&c='+start.getFullYear()+'&d='+end.getMonth()+'&e='+end.getDate()+'&f='+end.getFullYear();
     request(url, function(error, response, csvContents){
-      if(!error && response.statusCode == 200) {
+      if(!error && response.statusCode === 200) {
               var first = true;
               var quotes = [];
               _.forEach(_.split(csvContents,'\n'),function(line) {

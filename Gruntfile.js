@@ -239,8 +239,8 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= yeoman.dist %>/<%= yeoman.client %>/!(bower_components){,*/}*.{js,css}',
-          '<%= yeoman.dist %>/<%= yeoman.client %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/<%= yeoman.client %>/assets/fonts/*'
+          '<%= yeoman.dist %>/<%= yeoman.client %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        //SCOTT  '<%= yeoman.dist %>/<%= yeoman.client %>/assets/fonts/*'
         ]
       }
     },
@@ -269,6 +269,12 @@ module.exports = function (grunt) {
         patterns: {
           js: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+          ],
+          //SCOTT added the css: section
+          css: [
+            [/(..\/fonts\/)/g, 'Fix webfonts path', function(match) {
+              return match.replace('../fonts/', '../assets/fonts/');
+            }]
           ]
         }
       }
@@ -355,6 +361,17 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      // SCOTT added serve: section
+      serve: {
+        files: [{
+          // include font-awesome webfonts
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.client %>/bower_components/font-awesome',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.client %>/assets'
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -382,6 +399,22 @@ module.exports = function (grunt) {
             '<%= yeoman.server %>/**/*',
             '!<%= yeoman.server %>/config/local.env.sample.js'
           ]
+        },{
+          // include font-awesome webfonts
+          //
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.client %>/bower_components/font-awesome',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>/public/assets'
+        },{
+          // include bootstrap webfonts
+          //
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.client %>/bower_components/bootstrap/dist',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>/public/assets'
         }]
       },
       styles: {
@@ -596,7 +629,8 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+            '<%= yeoman.client %>/{app,components}/**/*.css',
+            '!<%= yeoman.client %>/app/app.css'  //SCOTT added this is the line to be added to prevent app.css from being loaded twice  --
           ]
         }
       }
@@ -751,6 +785,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'copy:serve',
     'concurrent:pre',
     'concurrent:dist',
     'injector',
