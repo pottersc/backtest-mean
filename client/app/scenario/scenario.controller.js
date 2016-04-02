@@ -9,8 +9,8 @@ angular.module('backtestMeanApp')
     $scope.operatorChoices = ['>','<'];
     $scope.strategyChoices = IndicatorStrategyFactory.getAvailableStrategyChoices();
     $scope.scenario = BacktestService.getInitialScenarioConfiguration();
-    $scope.chartObject;
-   // $scope.chartHelp = $sce.trustAsHtml("Roll mouse on chart to zoom<br>Hold left mouse button to pan left/right<br>Hover over buy/sell tags to view details<br>Click on legend to hide/show chart lines");
+    $scope.chartObject = {};
+   // $scope.chartHelp = $sce.trustAsHtml('Roll mouse on chart to zoom<br>Hold left mouse button to pan left/right<br>Hover over buy/sell tags to view details<br>Click on legend to hide/show chart lines');
     $scope.hideSeries = ChartService.hideSeries;
 
 
@@ -44,9 +44,9 @@ angular.module('backtestMeanApp')
         $scope.submitted = false;
       }else{
         $scope.submitted = true;
-        console.log("invalid form");
+        console.log('invalid form');
       }
-    }
+    };
 
     /**
      * Load all scenarios for the current user
@@ -58,6 +58,7 @@ angular.module('backtestMeanApp')
         socket.syncUpdates('scenario',  $scope.scenarios);
       });
     };
+
 
       /**
        * Save the scenario described in the form to the database
@@ -77,9 +78,9 @@ angular.module('backtestMeanApp')
         $scope.showToast('A new scenario for ticker '+ $scope.scenario.ticker + ' has been added to the database');
       }else{
         $scope.submitted = true;
-        console.log("invalid form");
+        console.log('invalid form');
       }
-    }
+    };
 
     /**
      * Update the existing scenario described in the form to the database
@@ -93,9 +94,9 @@ angular.module('backtestMeanApp')
         $scope.showToast('Existing scenario for ticker '+ $scope.scenario.ticker + ' has been updated');
       }else{
         $scope.submitted = true;
-        console.log("invalid form");
+        console.log('invalid form');
       }
-    }
+    };
 
     /**
      * Load the specified scenario and reset associated attributes on the scope
@@ -109,7 +110,7 @@ angular.module('backtestMeanApp')
       $scope.chartObject = '';
       $state.go('scenario');
       $scope.showToast('Scenario for ticker '+ $scope.scenario.ticker + ' has been loaded');
-    }
+    };
 
     /**
      * Delete the specified scenario from the database
@@ -118,7 +119,7 @@ angular.module('backtestMeanApp')
     $scope.deleteScenario = function(scenario) {
       $http.delete('/api/scenario/' + scenario._id);
       $scope.showToast('Scenario for ticker '+ $scope.scenario.ticker + ' has been DELETED from the database');
-    }
+    };
 
     /**
      * Create and return a text description for the specified trade trigger
@@ -127,7 +128,7 @@ angular.module('backtestMeanApp')
      */
     $scope.getTriggerDesc = function(trigger){
       return trigger.indicator1.name + trigger.operator + trigger.indicator2.name;
-    }
+    };
 
     /**
      * Create and return a text summary description of a scenario
@@ -135,8 +136,8 @@ angular.module('backtestMeanApp')
      * @returns {string} : description of scneario
      */
     $scope.getDesc = function(scenario){
-      return scenario.ticker + " buy when "+ $scope.getTriggerDesc(scenario.buyTrigger) + " sell when "+ $scope.getTriggerDesc(scenario.sellTrigger);
-    }
+      return scenario.ticker + ' buy when '+ $scope.getTriggerDesc(scenario.buyTrigger) + ' sell when '+ $scope.getTriggerDesc(scenario.sellTrigger);
+    };
 
     /**
      * Create and return a text label summary of backtesting return on investment
@@ -144,11 +145,13 @@ angular.module('backtestMeanApp')
      * @returns string : text summary of backtesting return on investment
      */
     $scope.getAnalysisReturnLabel = function(scenario){
-      if(scenario.analysisResults && scenario.analysisResults.annualReturnPercent)
-        return _.round(scenario.analysisResults.annualReturnPercent,1) + "%";
-      else
-        return "NA";
-    }
+      if(scenario.analysisResults && scenario.analysisResults.annualReturnPercent) {
+        return _.round(scenario.analysisResults.annualReturnPercent, 1) + '%';
+      }
+      else {
+        return 'NA';
+      }
+    };
 
     /**
      * Create and return a more detailed description of the backtesting return on investment
@@ -156,11 +159,13 @@ angular.module('backtestMeanApp')
      * @returns : text description of backtesting analysis return on investment
      */
     $scope.getAnalysisReturnDesc = function(scenario){
-      if(scenario.analysisResults && scenario.analysisResults.annualReturnPercent)
-        return "Investment return of " + _.round(scenario.analysisResults.investmentReturnPercent,1)+"% with projected annual ROR of "+_.round(scenario.analysisResults.annualReturnPercent,1) + "%";
-      else
-        return "analysis not executed";
-    }
+      if(scenario.analysisResults && scenario.analysisResults.annualReturnPercent) {
+        return 'Investment return of ' + _.round(scenario.analysisResults.investmentReturnPercent, 1) + '% with projected annual ROR of ' + _.round(scenario.analysisResults.annualReturnPercent, 1) + '%';
+      }
+      else {
+        return 'analysis not executed';
+      }
+    };
 
     /**
      * Pop up a dialog that lists previously run scenarios for the current user

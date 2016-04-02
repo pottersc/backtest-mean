@@ -1,6 +1,7 @@
 var request = require('request');
 var _ = require('lodash');
 
+
 /**
  * Retrieve the historical stock quotes for the specified ticker symbol and dates
  * @param ticker : ticker symbol of the stock

@@ -16,8 +16,8 @@ angular.module('backtestMeanApp')
      */
     HistoricalQuotesService.getQuotes = function(ticker, start, end){
       return new Promise(function(resolve, reject) {
-        let startStr = $filter('date')(start, "yyyy-MM-dd");
-        let endStr = $filter('date')(end, "yyyy-MM-dd");
+        let startStr = $filter('date')(start, 'yyyy-MM-dd');
+        let endStr = $filter('date')(end, 'yyyy-MM-dd');
         var url = '/api/quotes?ticker='+ticker+'&start='+startStr+'&end='+endStr;
         $http.get(url).then(response => {
           let quotes = [];
@@ -26,8 +26,12 @@ angular.module('backtestMeanApp')
             quotes.push(quote);
 
           });
-       //   console.log(quotes);
-          resolve(quotes);
+          console.log(quotes);
+          if(!quotes){
+            reject('error accessing quotes');
+          }else {
+            resolve(quotes);
+          }
         });
 
 
@@ -138,16 +142,4 @@ angular.module('backtestMeanApp')
   }]);
 
 
-/**
- * Convert a date string in format 2016-01-21 into a Date object
- * in EST timezone.  This is done by adding 5 hours to the UTC Date
- * @param dateStr
- * @returns {Date}
- */
-function parseDate(dateStr){
-  var dateElements = _.split(dateStr,'-');
-  var year = Number(_.trim(dateElements[0]));
-  var month = Number(_.trim(dateElements[1])) - 1;
-  var day = Number(_.trim(dateElements[2]));
-  return new Date(Date.UTC(year,month,day,5,0,0));
-}
+

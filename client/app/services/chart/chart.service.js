@@ -61,8 +61,8 @@ angular.module('backtestMeanApp')
             axis: 'horizontal'
 
           },
-          "colors": ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
-          "defaultColors": ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
+          'colors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
+          'defaultColors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
           series: {
             0: {targetAxisIndex: 0},
             1: {targetAxisIndex: 1}
@@ -95,7 +95,7 @@ angular.module('backtestMeanApp')
       console.log('hide:'+selectedItem);
       var col = selectedItem.column;
       if (selectedItem.row === null) {
-        if (chartObject.view.columns[col] == col) {
+        if (chartObject.view.columns[col] === col) {
           chartObject.view.columns[col] = {
             label: chartObject.data.cols[col].label,
             type: chartObject.data.cols[col].type,
@@ -110,7 +110,7 @@ angular.module('backtestMeanApp')
           chartObject.options.colors[col - 1] = chartObject.options.defaultColors[col - 1];
         }
       }
-    }
+    };
 
     /**
      * Initialize an array of all the series (lie lines) that are to be displayed in the chart to be used
@@ -134,7 +134,7 @@ angular.module('backtestMeanApp')
      */
     function getTradeAnnotation(tradeDay) {
       var annotation;
-      if (tradeDay.action == 'BUY' || tradeDay.action == 'SELL') {
+      if (tradeDay.action === 'BUY' || tradeDay.action === 'SELL') {
         annotation = tradeDay.action;
       } else {
         annotation = null;

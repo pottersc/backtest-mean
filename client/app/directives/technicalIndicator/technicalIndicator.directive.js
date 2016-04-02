@@ -9,13 +9,13 @@ angular.module('backtestMeanApp')
           indicator: '=',
           strategyChoices: '=',
           type: '=',
-          desc: "@desc"
+          desc: '@desc'
       },
       link: function(scope) {
         scope.getStrategy = function(strategyType, strategyChoices){
           var strategy = null;
           for(var i=0;i < strategyChoices.length; i++){
-            if(strategyChoices[i].type == strategyType){
+            if(strategyChoices[i].type === strategyType){
               strategy = strategyChoices[i];
             }
           }

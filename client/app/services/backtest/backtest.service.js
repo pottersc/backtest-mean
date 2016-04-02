@@ -105,8 +105,9 @@ class BacktestService {
      */
   convertDateStringToDate(value){
     if (value && !(value instanceof Date)) {
-      if (typeof value === 'string')
+      if (typeof value === 'string') {
         value = new Date(value);
+      }
     }
     return value;
   }
