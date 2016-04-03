@@ -13,7 +13,8 @@ angular.module('backtestMeanApp', [
   'validation.match',
   'ngMaterial',
   'ngMessages',
-  'googlechart'
+  'googlechart',
+  'angularSpinner'
 ])
   .config(function($urlRouterProvider, $locationProvider, $mdThemingProvider) {
     // used below to try to enable cross site scripting

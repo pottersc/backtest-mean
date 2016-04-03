@@ -111,16 +111,18 @@
             <md-tooltip>View a picklist of previously run scenarios</md-tooltip>
           </md-button>
         </div>
+        <span us-spinner spinner-key="spinner-scenario"></span>
       </form>
     </md-content>
   </div>
 </div>
 
 <br>
-<div flex layout="row" layout-align="center center" ng-show="chartObject">
+
+<div flex layout="row" layout-align="center center" ng-show="chartExists()">
   <div flex="95" class="md-whiteframe-3dp">
     <md-content class="md-padding">
-      <div google-chart chart="chartObject"  on-select="hideSeries(selectedItem)" style="height:600px; width:100%;"></div>
+      <div google-chart chart="chartObject"  on-select="hideSeries(selectedItem)" style="height:600px; width:100%;" ></div>
     </md-content>
   </div>
 </div>

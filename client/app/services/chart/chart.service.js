@@ -15,7 +15,7 @@ angular.module('backtestMeanApp')
   .factory('ChartService', ['googleChartApiPromise', '$filter',function (googleChartApiPromise, $filter) {
     var ChartService = {};
 
-    ChartService.buildChart = function(backtestResults){
+    ChartService.buildChart = function(backtestResults, completionCallback){
         var chartObject = {};
         chartObject.type = 'LineChart';
         chartObject.displayed = false;
@@ -80,6 +80,7 @@ angular.module('backtestMeanApp')
         chartObject.view = {
           columns: initializeViewArray(numColumnsToView)
         };
+      completionCallback;
         return chartObject;
     };
 

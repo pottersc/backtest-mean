@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('backtestMeanApp')
-  .controller('ScenarioCtrl', function($http, $scope, socket, googleChartApiPromise, ChartService, BacktestService, $state, $mdDialog,$mdToast, Auth) {
+  .controller('ScenarioCtrl', function($http, $scope, socket, googleChartApiPromise, ChartService, BacktestService, $state, $mdDialog,$mdToast, Auth, usSpinnerService) {
     $scope.isAuthenticated = Auth.isLoggedIn;
     $scope.scenarios = [];
     $scope.errors = {};
@@ -29,9 +29,10 @@ angular.module('backtestMeanApp')
      */
     $scope.analyzeScenario = function(form) {
       if (form.$valid) {
+        $scope.startSpin();
         BacktestService.calculate($scope.scenario)
           .then(function(backtestResults){
-            googleChartApiPromise.then($scope.chartObject = ChartService.buildChart(backtestResults));
+            googleChartApiPromise.then($scope.chartObject = ChartService.buildChart(backtestResults, $scope.stopSpin()));
             $scope.scenario.analysisResults = {
               endingInvestment: backtestResults.endingInvestment,
               investmentReturnPercent: backtestResults.investmentReturnPercent,
@@ -46,6 +47,14 @@ angular.module('backtestMeanApp')
         $scope.submitted = true;
         console.log('invalid form');
       }
+    };
+
+    /**
+     * Utility function that returns true if the chart has been generated
+     * @returns {boolean}
+       */
+    $scope.chartExists = function(){
+      return !_.isEmpty($scope.chartObject);
     };
 
     /**
@@ -104,11 +113,13 @@ angular.module('backtestMeanApp')
      * @param scenario
      */
     $scope.loadScenario = function(scenario) {
+      $scope.startSpin();
       $scope.scenario = scenario;
       BacktestService.fixDateFormatIssues($scope.scenario);  // required because of an issue with Material datepicker
       $scope.scenario.analysisResults = {};
       $scope.chartObject = '';
       $state.go('scenario');
+      $scope.stopSpin();
       $scope.showToast('Scenario for ticker '+ $scope.scenario.ticker + ' has been loaded');
     };
 
@@ -219,6 +230,19 @@ angular.module('backtestMeanApp')
           .hideDelay(3000)
       );
     };
+
+    /**
+     * Start the spinner in the scenario form
+     */
+    $scope.startSpin = function(){
+      usSpinnerService.spin('spinner-scenario');
+    }
+    /**
+     * Stop the spinner in the scenario form
+     */
+    $scope.stopSpin = function(){
+      usSpinnerService.stop('spinner-scenario');
+    }
 
     /**
      * Disconnect from SocketIO
