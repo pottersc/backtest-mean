@@ -18,7 +18,6 @@
       <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
       <!-- endbower -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
       <link rel="stylesheet" href="app/app.css">
@@ -79,6 +78,10 @@
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
+
+    <!-- For polyfill to work must place polyfill.min in client\components\polyfill\ folder -->
+    <!-- this is not recommended approach and this should automatically get added to vendor.js or plugin.js as future enhancement -->
+    <script src="components/polyfill/polyfill.min"></script>
     <!-- build:js(.tmp) app/app.js -->
       <script src="app/app.js"></script>
       <!-- injector:js -->
@@ -111,6 +114,7 @@
       <script src="components/navbar/navbar.directive.js"></script>
       <script src="components/oauth-buttons/oauth-buttons.controller.js"></script>
       <script src="components/oauth-buttons/oauth-buttons.directive.js"></script>
+      <script src="components/polyfill/polyfill.min.js"></script>
       <script src="components/socket/socket.service.js"></script>
       <script src="app/account/signup/signup.controller.js"></script>
       <script src="components/util/util.service.js"></script>

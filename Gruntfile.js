@@ -240,7 +240,7 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.dist %>/<%= yeoman.client %>/!(bower_components){,*/}*.{js,css}',
           '<%= yeoman.dist %>/<%= yeoman.client %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        //SCOTT  '<%= yeoman.dist %>/<%= yeoman.client %>/assets/fonts/*'
+        //Font Awesome support:  '<%= yeoman.dist %>/<%= yeoman.client %>/assets/fonts/*'
         ]
       }
     },
@@ -270,7 +270,7 @@ module.exports = function (grunt) {
           js: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
           ],
-          //SCOTT added the css: section
+          //Font Awesome support: added the css: section
           css: [
             [/(..\/fonts\/)/g, 'Fix webfonts path', function(match) {
               return match.replace('../fonts/', '../assets/fonts/');
@@ -361,7 +361,7 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
-      // SCOTT added serve: section
+      // Font Awesome support: added serve: section
       serve: {
         files: [{
           // include font-awesome webfonts
@@ -630,7 +630,7 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
             '<%= yeoman.client %>/{app,components}/**/*.css',
-            '!<%= yeoman.client %>/app/app.css'  //SCOTT added this is the line to be added to prevent app.css from being loaded twice  --
+            '!<%= yeoman.client %>/app/app.css'  //Font Awesome support: this is the line to be added to prevent app.css from being loaded twice  --
           ]
         }
       }
