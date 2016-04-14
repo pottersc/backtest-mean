@@ -32,15 +32,17 @@ angular.module('backtestMeanApp')
         $scope.startSpin();
         BacktestService.calculate($scope.scenario)
           .then(function(backtestResults){
-            googleChartApiPromise.then($scope.chartObject = ChartService.buildChart(backtestResults, $scope.stopSpin()));
+            googleChartApiPromise.then($scope.chartObject = ChartService.buildChart(backtestResults));
             $scope.scenario.analysisResults = {
               endingInvestment: backtestResults.endingInvestment,
               investmentReturnPercent: backtestResults.investmentReturnPercent,
               annualReturnPercent: backtestResults.annualReturnPercent
             };
+            $scope.stopSpin();
           })
           .catch(function(err){
             console.log(err);
+            $scope.stopSpin();
           });
         $scope.submitted = false;
       }else{
