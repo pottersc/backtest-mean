@@ -30,6 +30,7 @@ angular.module('backtestMeanApp')
     $scope.analyzeScenario = function(form) {
       if (form.$valid) {
         $scope.startSpin();
+        $scope.chartObject = {};
         BacktestService.calculate($scope.scenario)
           .then(function(backtestResults){
             googleChartApiPromise.then($scope.chartObject = ChartService.buildChart(backtestResults));
