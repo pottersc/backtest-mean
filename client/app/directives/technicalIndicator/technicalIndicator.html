@@ -8,7 +8,7 @@
     </md-select>
   </md-input-container>
 
-  <md-input-container flex="none" ng-show="getStrategy(indicator.type, strategyChoices).value1Label">
+  <md-input-container flex="none" ng-if="getStrategy(indicator.type, strategyChoices).value1Label">
     <label>{{getStrategy(indicator.type, strategyChoices).value1Label }}</label>
     <input type="number" ng-model="indicator.value1" size="8" required min="0">
     <div ng-messages="scenarioForm.transactionCost.$error">
