@@ -41,8 +41,15 @@ angular.module('backtestMeanApp')
             $scope.stopSpin();
           })
           .catch(function(err){
-            console.log(err);
             $scope.stopSpin();
+            $mdDialog.show(
+              $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('An error occurred while running backtest analysis')
+                .textContent(err)
+                .ariaLabel(err)
+                .ok('OK')
+            );
           });
         $scope.submitted = false;
       }else{

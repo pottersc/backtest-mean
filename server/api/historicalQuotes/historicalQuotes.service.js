@@ -31,8 +31,9 @@ exports.getQuotes = function(ticker, startStr, endStr) {
               _.reverse(quotes);
               resolve(quotes);
       }else {
-        console.log('error during getQuotes:'+error);
-        reject(error);
+        let errMsg = 'Error during getQuotes:' + error + ', No quotes found for ticker ' + ticker + ' between '+ startStr + ' and ' + endStr;
+        console.log(errMsg);
+        reject(errMsg);
       }
     });
   });

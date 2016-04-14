@@ -24,19 +24,23 @@ angular.module('backtestMeanApp')
         let startStr = $filter('date')(start, 'yyyy-MM-dd');
         let endStr = $filter('date')(end, 'yyyy-MM-dd');
         var url = '/api/quotes?ticker='+ticker+'&start='+startStr+'&end='+endStr;
-        $http.get(url).then(response => {
-          let quotes = [];
-          _.forEach(response.data,function(quoteSource) {
-            let quote = {date: parseDate(quoteSource.date), price: Number(quoteSource.price)};
-            quotes.push(quote);
+        $http.get(url)
+          .then(response => {
+            let quotes = [];
+            _.forEach(response.data,function(quoteSource) {
+              let quote = {date: parseDate(quoteSource.date), price: Number(quoteSource.price)};
+              quotes.push(quote);
 
+            });
+            if(!quotes){
+               reject('ERROR: HistoricalQuotesService.getQuotes did not return any quotes for ticker '+ ticker);
+            }else {
+              resolve(quotes);
+            }
+          })
+          .catch(function(err){
+            reject(err.data);
           });
-          if(!quotes){
-            reject('error accessing quotes');
-          }else {
-            resolve(quotes);
-          }
-        });
       });
     };
 
@@ -71,6 +75,7 @@ angular.module('backtestMeanApp')
             resolve(quotes);
           })
           .error(function (err) {
+            console.log(' HistoricalQuotesService.getQuotesDirect:err='+err);
             reject(err);
           });
       });
