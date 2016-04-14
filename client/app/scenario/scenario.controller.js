@@ -180,7 +180,7 @@ angular.module('backtestMeanApp')
      */
     $scope.getAnalysisReturnDesc = function(scenario){
       if(scenario.analysisResults && scenario.analysisResults.annualReturnPercent) {
-        return 'Investment return of ' + _.round(scenario.analysisResults.investmentReturnPercent, 1) + '% with projected annual ROR of ' + _.round(scenario.analysisResults.annualReturnPercent, 1) + '%';
+        return 'Total investment return of ' + _.round(scenario.analysisResults.investmentReturnPercent, 1) + '% with an average annual rate of return of ' + _.round(scenario.analysisResults.annualReturnPercent, 1) + '%';
       }
       else {
         return 'analysis not executed';
