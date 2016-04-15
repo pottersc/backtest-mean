@@ -8,79 +8,80 @@
  * The google chart wrapper directive from https://github.com/angular-google-chart/angular-google-chart
  * is used to simplify the chart creation and provide added features such as dynamic hiding of chart lines.
  * This charting capability follows the requirements specified in the google chart documentation at
- * https://developers.google.com/chart/interactive/docs/gallery/linechart
+ * https://developers.google.com/chart/interactive/docs/gallery/linechart and
+ * https://developers.google.com/chart/interactive/docs/reference
  */
 
 angular.module('backtestMeanApp')
   .factory('ChartService', ['googleChartApiPromise', '$filter',function (googleChartApiPromise, $filter) {
-    var ChartService = {};
+    let ChartService = {};
 
-    ChartService.buildChart = function(backtestResults){
-        var chartObject = {};
-        chartObject.type = 'LineChart';
-        chartObject.displayed = false;
-        var data = new google.visualization.DataTable();
-        // define the columns for the chart
-        data.addColumn('date', 'Trade Date');
-        data.addColumn('number', 'Stock Price');
-        data.addColumn({type: 'string', role: 'annotation'}); // annotation role col.
-        data.addColumn({type: 'string', role: 'annotationText'}); // annotationText col.
-        data.addColumn('number', 'Investment Value');
-        // add additional columns as required for the number of trade indicators in backtest result data
-        _.each(backtestResults.availableIndicatorNames, function (indicatorName) {
-          data.addColumn('number', indicatorName);
-        });
+    ChartService.buildChart = function (backtestResults) {
+      let chartObject = {};
+      chartObject.type = 'LineChart';
+      chartObject.displayed = false;
+      chartObject.data = {cols: [], rows: []};
+      // define the columns for the chart
+      chartObject.data.cols.push({id: 'date', label: 'Trade Date', type: 'date'});
+      chartObject.data.cols.push({id: 'price', label: 'Stock Price', type: 'number'});
+      chartObject.data.cols.push({id: 'annotation', label: '', type: 'string', p: {role: 'annotation'}});
+      chartObject.data.cols.push({id: 'annotationText', label: '', type: 'string', p: {role: 'annotationText'}});
+      chartObject.data.cols.push({id: 'value', label: 'Investment Value', type: 'number'});
+      // add additional columns as required for the number of trade indicators in backtest result data
+      _.each(backtestResults.availableIndicatorNames, function (indicatorName) {
+        chartObject.data.cols.push({id: indicatorName, label: indicatorName, type: 'number'});
+      });
 
-        // add the data for the chart for each trade day
-        data.addRows(backtestResults.tradeDays.length);
-        $.each(backtestResults.tradeDays, function (index, tradeDay) {
-          data.setCell(index, 0, tradeDay.date);
-          data.setCell(index, 1, (tradeDay.price));
-          data.setCell(index, 2, getTradeAnnotation(tradeDay));
-          data.setCell(index, 3, getTradeAnnotationText(tradeDay));
-          data.setCell(index, 4, (tradeDay.investmentValue));
-          var colIndex = 5;
-          $.each(backtestResults.availableIndicatorNames, function (indicatorIndex, indicatorName) {
-            var indicator = _.findLast(tradeDay.indicators,['name',indicatorName]);
-            if (indicator !== null) {
-              data.setCell(index, colIndex, indicator.value);
-            }
-            colIndex++;
-          });
-        });
-
-        // define all of the chart options
-        var options = {
-          title: 'Backtest Analysis Results: Ending Investment=' + $filter('currency')(backtestResults.endingInvestment)+', Return='+_.round(backtestResults.investmentReturnPercent,1)+'%',
-          legend: {position: 'top', maxLines: 2},
-          displayAnnotations: true,
-          explorer: {
-            maxZoomOut: 1,
-            maxZoomIn: 0.1,
-            keepInBounds: true,
-            axis: 'horizontal'
-
-          },
-          'colors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
-          'defaultColors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
-          series: {
-            0: {targetAxisIndex: 0},
-            1: {targetAxisIndex: 1}
-          },
-          vAxes: {
-            // Adds titles to each axis.
-            0: {title: 'Stock Price ($)'},
-            1: {title: 'Investment Value ($)'}
+      // add the data for the chart for each trade day
+      $.each(backtestResults.tradeDays, function (index, tradeDay) {
+        let dayData = {c: []};
+        dayData.c.push({v: tradeDay.date});
+        dayData.c.push({v:  _.round(tradeDay.price,2)});
+        dayData.c.push({v: getTradeAnnotation(tradeDay)});
+        dayData.c.push({v: getTradeAnnotationText(tradeDay)});
+        dayData.c.push({v:  _.round(tradeDay.investmentValue,2)});
+        var colIndex = 5;
+        $.each(backtestResults.availableIndicatorNames, function (indicatorIndex, indicatorName) {
+          var indicator = _.findLast(tradeDay.indicators, ['name', indicatorName]);
+          if (indicator !== null) {
+            dayData.c.push({v:  _.round(indicator.value,2)});
           }
-        };
-        chartObject.options = options;
-        chartObject.data = normalizeGoogleDataTableObject(data);
-        // initialize data for the 'hideSeries' capability
-        var numColumnsToView = 5 + backtestResults.availableIndicatorNames.length;
-        chartObject.view = {
-          columns: initializeViewArray(numColumnsToView)
-        };
-        return chartObject;
+          colIndex++;
+        });
+        chartObject.data.rows.push(dayData);
+      });
+
+      // define all of the chart options
+      var options = {
+        title: 'Backtest Analysis Results: Ending Investment=' + $filter('currency')(backtestResults.endingInvestment) + ', Return=' + _.round(backtestResults.investmentReturnPercent, 1) + '%',
+        legend: {position: 'top', maxLines: 2},
+        displayAnnotations: true,
+        explorer: {
+          maxZoomOut: 1,
+          maxZoomIn: 0.1,
+          keepInBounds: true,
+          axis: 'horizontal'
+        },
+        'colors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
+        'defaultColors': ['#0000FF', '#009900', '#CC0000', '#DD9900', '#000000', '#ff33cc', '#99ccff', '#ff9966', '#666633'],
+        series: {
+          0: {targetAxisIndex: 0},
+          1: {targetAxisIndex: 1}
+        },
+        vAxes: {
+          // Adds titles to each axis.
+          0: {title: 'Stock Price ($)'},
+          1: {title: 'Investment Value ($)'}
+        }
+      };
+
+      chartObject.options = options;
+      var numColumnsToView = 5 + backtestResults.availableIndicatorNames.length;
+      chartObject.view = {
+        columns: initializeViewArray(numColumnsToView)
+      };
+
+      return chartObject;
     };
 
 
@@ -93,7 +94,7 @@ angular.module('backtestMeanApp')
      */
     ChartService.hideSeries = function (selectedItem, chartObject) {
       console.log('hide:'+selectedItem);
-      var col = selectedItem.column;
+      let col = selectedItem.column;
       if (selectedItem.row === null) {
         if (chartObject.view.columns[col] === col) {
           chartObject.view.columns[col] = {
@@ -119,7 +120,7 @@ angular.module('backtestMeanApp')
      * @returns {Array} : ex [0,1,2,3,4] if there are 5 lines on the chart
      */
     function initializeViewArray(numCols) {
-      var viewArray = [];
+      let viewArray = [];
       for (var i = 0; i < numCols; i++) {
         viewArray.push(i);
       }
@@ -128,12 +129,12 @@ angular.module('backtestMeanApp')
 
     /**
      * Create teh annotation that will be displayed on chart when any important transaction occurred
-     * Basically disply either BUT or SELL text as appropriate
+     * Basically display either BUT or SELL text as appropriate
      * @param tradeDay : tradeDay object as returned from backtest service
      * @returns : string containing the annotation
      */
     function getTradeAnnotation(tradeDay) {
-      var annotation;
+      let annotation;
       if (tradeDay.action === 'BUY' || tradeDay.action === 'SELL') {
         annotation = tradeDay.action;
       } else {
@@ -148,16 +149,7 @@ angular.module('backtestMeanApp')
      * @returns {string} : detailed description of the transaction that occurred on the specified tradeDay
      */
     function getTradeAnnotationText(tradeDay) {
-      return tradeDay.action + ' ' + $filter('number')(tradeDay.numSharesTraded) + ' shares at ' + (tradeDay.price) + ' on ' + $filter('date')(tradeDay.date) + ' with proceeds of ' + $filter('currency')(tradeDay.investmentValue);
-    }
-
-    /**
-     * Transform dataTable object so that is is acceptable to googleChart
-     * This function needs additional attention as there has to be a better way to clean up the dataTable object
-     * @param dataTableObject
-     */
-    function normalizeGoogleDataTableObject(dataTableObject) {
-      return JSON.parse(JSON.parse(JSON.stringify(dataTableObject)));
+      return tradeDay.action + ' ' + $filter('number')(tradeDay.numSharesTraded) + ' shares at ' + ( _.round(tradeDay.price,2)) + ' on ' + $filter('date')(tradeDay.date) + ' with proceeds of ' + $filter('currency')(tradeDay.investmentValue);
     }
 
     return ChartService;
